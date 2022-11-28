@@ -1,6 +1,6 @@
 Package: ASRgenomics
 Title: 'ASReml-R' Genomics Tools
-Version: 1.1.2
+Version: 1.1.3
 Authors@R: c(
     person('Salvador', 'Gezan', , 'salvador.gezan@vsni.co.uk', role = c('aut', 'cre')),
     person('Darren', 'Murray', , 'darren.murray@vsni.co.uk', role = 'aut'),
@@ -26,7 +26,7 @@ LazyDataCompression: bzip2
 RoxygenNote: 7.2.1
 Language: en-US
 NeedsCompilation: no
-Packaged: 2022-11-21 15:22:22 UTC; giova
+Packaged: 2022-11-25 21:22:12 UTC; giova
 Author: Salvador Gezan [aut, cre],
   Darren Murray [aut],
   Amanda Avelar de Oliveira [aut],
@@ -34,4 +34,4 @@ Author: Salvador Gezan [aut, cre],
   VSN International [cph]
 Maintainer: Salvador Gezan <salvador.gezan@vsni.co.uk>
 Repository: CRAN
-Date/Publication: 2022-11-22 14:20:15 UTC
+Date/Publication: 2022-11-28 12:30:10 UTC

@@ -1,5 +1,16 @@
 To report bugs and new features, please send a message to \emph{salvador.gezan@vsni.co.uk}
 
+# ASRgenomics 1.1.3  - November 25
+
+##### Improvements:
+
+* Tests have been improved.
+
+##### Bug Fixes:
+
+* Fixed `RM` data frame exported by `match.G2A` in which combinations of row and
+columns were being replicated.
+
 # ASRgenomics 1.1.2  - November 2nd
 
 ##### Improvements:

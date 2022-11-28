@@ -140,11 +140,11 @@ test_that("Kinv condition check works", {
 
   expect_equal(
     Kinv.condition(
-      Kinv = chol2inv(chol(
-        matrix(c(1,.99,.99,
-                 .99,.99,.99,
-                 .99,.99,.99),
-               byrow = TRUE, nrow = 3)))
+      Kinv =
+        matrix(c(100, 2.800000e+01, -1.280000e+02,
+                 28, 5.764608e+17, -5.764608e+17,
+                 -128, -5.764608e+17, 5.764608e+17),
+               byrow = TRUE, nrow = 3)
     ),
 
     "ill-conditioned"

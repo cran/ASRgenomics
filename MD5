@@ -1,7 +1,7 @@
-ed4c8e7990f0c356830090b3f117a7fc *DESCRIPTION
+1169e0ea56eb5b50145db0ade80ced1c *DESCRIPTION
 4ad27f43f7291ebf43c19a71ca84b75a *LICENSE
 b57b3264ae977f5287ae6397e26d275e *NAMESPACE
-5f0961cd909bbd1826aaf2c258454d4c *NEWS.md
+c6a1736a89c5e95500c1ca33ab7d113b *NEWS.md
 e04112ea95873d34bac27f22f3c2ecba *R/ASRgenomics.R
 48bba883478d5a1a75551a0eac475d06 *R/G_inverse.R
 82d0fa2ee514a28b73aae28b053c4b60 *R/G_matrix.R
@@ -20,7 +20,7 @@ e04112ea95873d34bac27f22f3c2ecba *R/ASRgenomics.R
 be949021d326d4f721f5b38421c7dfda *R/geno_salmon.R
 03505ba32b86ea9e2920e33f267ad846 *R/genomic_summaries.R
 5d7527ec48b11cfcf9e409b41f1a3970 *R/kinship_diagnostics.R
-c1d6747dbd56f268dfc9519f8bacc68e *R/match_G2A.R
+1036407202c2b91d1f58dacf93d2de51 *R/match_G2A.R
 3f3e9460f1be72563baf672b1cee51d7 *R/match_kinship2pheno.R
 264aaaeb569d69ccf92cecb8409ba13d *R/ped_pine.R
 4916c121f22fb315269861b8d72be882 *R/ped_salmon.R
@@ -93,7 +93,7 @@ c6193fd8583975e7a97a4d5ed4876c52 *tests/testthat/test-Gmatrix.R
 144c26814dc72aef2de05ae13c7cbbf3 *tests/testthat/test-Hinverse.R
 72cebdd33372d8527bf24ff8b2aaa6a7 *tests/testthat/test-Hmatrix.R
 cd2784a0dff0ca5f0f898ba3555eadbb *tests/testthat/test-checkargs.R
-10a810a6ed78086bc96e38fdab751811 *tests/testthat/test-internal.R
+6949ae55a812d87fc0396321dae1975e *tests/testthat/test-internal.R
 8551dc34365715c93bd302252f9cafb6 *tests/testthat/test-kinshipdiagnostics.R
 c52fc4eb3707cac50af473829a3ed0e6 *tests/testthat/test-kinshipheat.R
 23b79388a98bfefbc8806b04781668ab *tests/testthat/test-kinshippca.R
