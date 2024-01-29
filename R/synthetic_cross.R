@@ -46,14 +46,17 @@
 #'  \item{If \code{heterozygote.action =  "useNA"},
 #' the generated offspring will have, for the heterozygote read, an \code{NA},
 #' and no markers are removed.
-#' Hence, no attempt will be done to impute/estimate this value.}
+#' Hence, no attempt will be done to impute/estimate this value.
+#' }
 #'
 #'  \item{If \code{heterozygote.action = "exact"},
 #' any marker containing one or more heterozygote reads will be removed.
-#' Hence, inconsistent markers are fully removed from the \eqn{\boldsymbol{M}} matrix.}
+#' Hence, inconsistent markers are fully removed from the \eqn{\boldsymbol{M}} matrix.
+#' }
 #'
 #'  \item{If \code{heterozygote.action = "fail"},
-#' function stops and informs of the presence of heterozygote reads.}
+#' function stops and informs of the presence of heterozygote reads.
+#' }
 #'
 #'  \item{If \code{heterozygote.action = "expected"},
 #' then an algorithm is implemented, on the heterozygote read to determine its
@@ -61,7 +64,6 @@
 #' (with equal probability) is 0.5. For a cross between two heterozygotes,
 #' the expected value is: \eqn{0(1/4) + 1(1/2) + 2(1/4) = 1}. And for a cross
 #' between 1 and 2, the expected value is: \eqn{1(1/2) + 2(1/2) = 1.5}}
-#'
 #' }
 #'
 #' Missing value require special treatment, and an imputation strategy is detailed
@@ -69,17 +71,16 @@
 #'
 #' \itemize{
 #'
-#'  \item{If \code{na.action = "useNA"},
-#'  if at least one of the parental reads is missing values for a given marker then it will be assigned
-#'  as missing for the hypothetical cross. Hence, no attempt will be done to impute/estimate this value.
-#   }
+#' \item{If \code{na.action = "useNA"}, if at least one of the parental reads
+#' is missing values for a given marker then it will be assigned as missing for
+#' the hypothetical cross. Hence, no attempt will be done to impute/estimate
+#' this value.}
 #'
-#'  \item{If \code{na.action = "expected"},
-#'  then an algorithm is implemented that will impute the expected read of the cross
-#'  if the genotype of \strong{one of the parents is missing} (\emph{e.g.}, cross between 0 and NA).
-#'  Calculations are based on parental allelic frequencies \eqn{p} and \eqn{q} for the given marker.
-#'  The expressions for expected values are detailed below.
-#'  }
+#' \item{If \code{na.action = "expected"}, then an algorithm is implemented that
+#' will impute the expected read of the cross if the genotype of \strong{one of
+#' the parents is missing} (\emph{e.g.}, cross between 0 and NA). Calculations
+#' are based on parental allelic frequencies \eqn{p} and \eqn{q} for the given
+#' marker. The expressions for expected values are detailed below.}
 #'
 #' \itemize{
 #'
@@ -107,8 +108,7 @@
 #'
 #' \eqn{q^2} (probability that the missing parent is 2) x 2 (offspring: \eqn{2(1/1)})}
 #' }
-#' }
-#' }
+#'
 #'
 #' Similarly, the calculation of the expected read of a cross when \strong{both parents are missing} is
 #' also based on population allelic frequencies for the given marker.
@@ -135,6 +135,7 @@
 #' \strong{Warning}. If \code{"expected"} is used for \code{heterozygote.action} or \code{na.action},
 #' direct transformation of the molecular data to other codings (\emph{e.g.},
 #' dominance matrix coded as \code{c(0,1,0)}) is not recommended.
+#' }
 #'
 #' @return
 #' A molecular matrix \eqn{\boldsymbol{M}} containing the genotypes generated/imputed for the
@@ -196,13 +197,19 @@ synthetic.cross <- function(M = NULL, ped = NULL, indiv = NULL, mother = NULL, f
   check.data_(data_ = "ped", class_ = "data.frame")
 
   # Check indiv.
-  check.args_(data_ = "ped", mandatory_ = TRUE, arg_ = "indiv", class_ = "character")
+  check.args_(data_ = ped, mandatory_ = TRUE, arg_ = indiv,
+              class_ = "character", mutate_ = TRUE,
+              class.action_ = "message", message_ = TRUE)
 
   # Check indiv.
-  check.args_(data_ = "ped", mandatory_ = TRUE, arg_ = "mother", class_ = "character")
+  check.args_(data_ = ped, mandatory_ = TRUE, arg_ = mother,
+              class_ = "character", mutate_ = TRUE,
+              class.action_ = "message", message_ = TRUE)
 
   # Check indiv.
-  check.args_(data_ = "ped", mandatory_ = TRUE, arg_ = "father", class_ = "character")
+  check.args_(data_ = ped, mandatory_ = TRUE, arg_ = father,
+              class_ = "character", mutate_ = TRUE,
+              class.action_ = "message", message_ = TRUE)
 
   # # Check ped names.
   # ped.name.hit <- c(indiv, mother, father) %in% names(ped)

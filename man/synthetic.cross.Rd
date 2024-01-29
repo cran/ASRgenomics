@@ -73,14 +73,17 @@ using the option \code{heterozygote.action}.
 \item{If \code{heterozygote.action =  "useNA"},
 the generated offspring will have, for the heterozygote read, an \code{NA},
 and no markers are removed.
-Hence, no attempt will be done to impute/estimate this value.}
+Hence, no attempt will be done to impute/estimate this value.
+}
 
 \item{If \code{heterozygote.action = "exact"},
 any marker containing one or more heterozygote reads will be removed.
-Hence, inconsistent markers are fully removed from the \eqn{\boldsymbol{M}} matrix.}
+Hence, inconsistent markers are fully removed from the \eqn{\boldsymbol{M}} matrix.
+}
 
 \item{If \code{heterozygote.action = "fail"},
-function stops and informs of the presence of heterozygote reads.}
+function stops and informs of the presence of heterozygote reads.
+}
 
 \item{If \code{heterozygote.action = "expected"},
 then an algorithm is implemented, on the heterozygote read to determine its
@@ -88,7 +91,6 @@ expected value. For example, if parents are 0 and 1, then the expected value
 (with equal probability) is 0.5. For a cross between two heterozygotes,
 the expected value is: \eqn{0(1/4) + 1(1/2) + 2(1/4) = 1}. And for a cross
 between 1 and 2, the expected value is: \eqn{1(1/2) + 2(1/2) = 1.5}}
-
 }
 
 Missing value require special treatment, and an imputation strategy is detailed
@@ -96,16 +98,16 @@ below as indicated using the option \code{na.action}.
 
 \itemize{
 
-\item{If \code{na.action = "useNA"},
-if at least one of the parental reads is missing values for a given marker then it will be assigned
-as missing for the hypothetical cross. Hence, no attempt will be done to impute/estimate this value.
+\item{If \code{na.action = "useNA"}, if at least one of the parental reads
+is missing values for a given marker then it will be assigned as missing for
+the hypothetical cross. Hence, no attempt will be done to impute/estimate
+this value.}
 
-\item{If \code{na.action = "expected"},
-then an algorithm is implemented that will impute the expected read of the cross
-if the genotype of \strong{one of the parents is missing} (\emph{e.g.}, cross between 0 and NA).
-Calculations are based on parental allelic frequencies \eqn{p} and \eqn{q} for the given marker.
-The expressions for expected values are detailed below.
-}
+\item{If \code{na.action = "expected"}, then an algorithm is implemented that
+will impute the expected read of the cross if the genotype of \strong{one of
+the parents is missing} (\emph{e.g.}, cross between 0 and NA). Calculations
+are based on parental allelic frequencies \eqn{p} and \eqn{q} for the given
+marker. The expressions for expected values are detailed below.}
 
 \itemize{
 
@@ -133,8 +135,6 @@ The expressions for expected values are detailed below.
 
 \eqn{q^2} (probability that the missing parent is 2) x 2 (offspring: \eqn{2(1/1)})}
 }
-}
-}
 
 Similarly, the calculation of the expected read of a cross when \strong{both parents are missing} is
 also based on population allelic frequencies for the given marker.
@@ -161,6 +161,7 @@ with bulked DNA analyses) for family groups with reasonable number of individual
 \strong{Warning}. If \code{"expected"} is used for \code{heterozygote.action} or \code{na.action},
 direct transformation of the molecular data to other codings (\emph{e.g.},
 dominance matrix coded as \code{c(0,1,0)}) is not recommended.
+}
 }
 \examples{
 # Create dummy pedigree (using first 10 as parents).

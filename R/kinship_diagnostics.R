@@ -28,12 +28,12 @@
 #'
 #' @return A list with the following elements:
 #' \itemize{
-#' \item \code{list.diagonal}: a data frame with the list of flagged large or small diagonal values.
-#' \item \code{list.duplicate}: a data frame with the list of possible duplicates.
-#' \item \code{clean.kinship}: output of kinship matrix filtered without the flagged diagonal
-#'  and/or duplicate individuals.
-#' \item \code{plot.diagonal}: histogram with the distribution of diagonal values from the kinship matrix.
-#' \item \code{plot.offdiag}: histogram with the distribution of off-diagonal values from kinship matrix.
+#' \item{\code{list.diagonal}: a data frame with the list of flagged large or small diagonal values.}
+#' \item{\code{list.duplicate}: a data frame with the list of possible duplicates.}
+#' \item{\code{clean.kinship}: output of kinship matrix filtered without the flagged diagonal
+#'  and/or duplicate individuals.}
+#' \item{\code{plot.diagonal}: histogram with the distribution of diagonal values from the kinship matrix.}
+#' \item{\code{plot.offdiag}: histogram with the distribution of off-diagonal values from kinship matrix.}
 #' }
 #'
 #' @export

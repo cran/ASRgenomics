@@ -83,13 +83,13 @@ original input matrix (default = \code{TRUE}).}
 \value{
 A list with the following elements:
 \itemize{
-\item \code{M.clean}: the cleaned \eqn{\boldsymbol{M}} matrix after the quality control filters have been applied.
-\item \code{map}: if provided, a cleaned \code{map} data frame after the quality control filters have been applied.
-\item \code{plot.missing.ind}: a plot of missing data per individual (original marker matrix).
-\item \code{plot.missing.SNP}: a plot of missing data per SNP (original marker matrix).
-\item \code{plot.heteroz}: a plot of observed heterozygocity per SNP (original marker matrix).
-\item \code{plot.Fis}: a plot of Fis per SNP (original marker matrix).
-\item \code{plot.maf}: a plot of the minor allele frequency (original marker matrix).
+\item{\code{M.clean}: the cleaned \eqn{\boldsymbol{M}} matrix after the quality control filters have been applied.}
+\item{\code{map}: if provided, a cleaned \code{map} data frame after the quality control filters have been applied.}
+\item{\code{plot.missing.ind}: a plot of missing data per individual (original marker matrix).}
+\item{\code{plot.missing.SNP}: a plot of missing data per SNP (original marker matrix).}
+\item{\code{plot.heteroz}: a plot of observed heterozygocity per SNP (original marker matrix).}
+\item{\code{plot.Fis}: a plot of Fis per SNP (original marker matrix).}
+\item{\code{plot.maf}: a plot of the minor allele frequency (original marker matrix).}
 }
 }
 \description{
@@ -128,7 +128,7 @@ that consists on a loop repeated twice:
 \strong{end for}
 }
 \examples{
-# Example: Pine dataset (coded as 0,1,2 with missing as -9).
+# Example: Pine dataset from ASRgenomics (coded as 0,1,2 with missing as -9).
 
 M.clean <- qc.filtering(
  M = geno.pine926,

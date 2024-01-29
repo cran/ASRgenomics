@@ -24,7 +24,7 @@ test_that("traps work", {
   # Wrong argument.
   expect_error(
     check.args_(
-      data_ = "datas", arg_ = INDIVIDUO, class_ = "integer")
+      data_ = datas, arg_ = INDIVIDUO, class_ = "integer")
   )
 
   # Incorrect Boolean.
@@ -36,7 +36,7 @@ test_that("traps work", {
   # Message for incorrect class.
   expect_message(
     check.args_(
-      data_ = "datas", mandatory_ = F, arg_ = INDIV,
+      data_ = datas, mandatory_ = F, arg_ = INDIV,
       class_ = "integer", class.action_ = "message", message_ = TRUE)
   )
 

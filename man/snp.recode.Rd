@@ -53,10 +53,8 @@ In the event of unidentified alleles, 0 will be used (default = \code{TRUE}).}
 \value{
 A list with the following two elements:
 \itemize{
-\item \code{Mrecode}: the molecular matrix \eqn{\boldsymbol{M}} recoded to
-0, 1, 2 and \code{NA}.
-\item \code{mapr}: the data frame with the map information including
-reference allele and alternative allele.
+\item{\code{Mrecode}: the molecular matrix \eqn{\boldsymbol{M}} recoded to 0, 1, 2 and \code{NA}.}
+\item{\code{mapr}: the data frame with the map information including reference allele and alternative allele.}
 }
 }
 \description{

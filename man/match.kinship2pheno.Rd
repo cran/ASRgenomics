@@ -36,15 +36,15 @@ from the kinship matrix and the phenotypic data (default = \code{FALSE}).}
 \value{
 A list with the following elements:
  \itemize{
-\item \code{mismatchesK}: a vector containing the names of the individuals from the provided kinship matrix
-that \emph{mismatch} with the phenotypic data.
-\item \code{matchesK}: a vector containing the names of the individuals from the provided kinship matrix
-that \emph{match} with the phenotypic data.
-\item \code{mismatchesP}: a vector containing the names of phenotyped individuals
-that \emph{mismatch} with those from the kinship matrix.
-\item \code{matchesP}: a vector containing the names of phenotyped individuals
-that \emph{match} with those from the kinship matrix.
-\item \code{Kclean}: a clean kinship matrix containing only the matched phenotyped individuals.
+\item{\code{mismatchesK}: a vector containing the names of the individuals from the provided kinship matrix
+that \emph{mismatch} with the phenotypic data.}
+\item{\code{matchesK}: a vector containing the names of the individuals from the provided kinship matrix
+that \emph{match} with the phenotypic data.}
+\item{\code{mismatchesP}: a vector containing the names of phenotyped individuals
+that \emph{mismatch} with those from the kinship matrix.}
+\item{\code{matchesP}: a vector containing the names of phenotyped individuals
+that \emph{match} with those from the kinship matrix.}
+\item{\code{Kclean}: a clean kinship matrix containing only the matched phenotyped individuals.}
 }
 }
 \description{
@@ -58,6 +58,7 @@ relationship matrix \eqn{\boldsymbol{H}}.
 Individual names should be assigned to \code{rownames} and \code{colnames} of input matrix.
 }
 \examples{
+\dontrun{
 # Get G matrix.
 G <- G.matrix(M = geno.pine655, method = "VanRaden", na.string = "-9", sparseform = FALSE)$G
 dim(G)
@@ -74,5 +75,5 @@ length(check$mismatchesK)
 length(check$matchesP)
 length(check$mismatchesP)
 dim(check$Kclean)
-
+}
 }

@@ -25,12 +25,12 @@
 #'
 #' @return A list with the following four elements:
 #' \itemize{
-#' \item \code{eigenvalues}: a data frame with the eigenvalues and its variances associated with each dimension
-#' including only the first \code{ncp} dimensions.
-#' \item \code{pca.scores}: a data frame with scores (rotated observations on the new components) including
-#' only the first \code{ncp} dimensions.
-#' \item \code{plot.pca}: a scatterplot with the first two-dimensions (PC1 and PC2) and their scores.
-#' \item \code{plot.scree}: a barchart with the percentage of variances explained by the \code{ncp} dimensions.
+#' \item{\code{eigenvalues}: a data frame with the eigenvalues and its variances associated with each dimension
+#' including only the first \code{ncp} dimensions.}
+#' \item{\code{pca.scores}: a data frame with scores (rotated observations on the new components) including
+#' only the first \code{ncp} dimensions.}
+#' \item{\code{plot.pca}: a scatterplot with the first two-dimensions (PC1 and PC2) and their scores.}
+#' \item{\code{plot.scree}: a barchart with the percentage of variances explained by the \code{ncp} dimensions.}
 #' }
 #'
 #' @export

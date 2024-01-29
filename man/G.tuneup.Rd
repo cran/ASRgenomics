@@ -56,18 +56,18 @@ matrices of a dimension of less than 1,500 \eqn{\times} 1,500 (default = \code{T
 \value{
 A list with six of the following elements:
 \itemize{
-\item \code{Gb}: the inverse of \eqn{\boldsymbol{G}} matrix in full form
-(only if sparseform = \code{FALSE}).
-\item \code{Gb.sparse}: if requested, the inverse of \eqn{\boldsymbol{G}} matrix in
-sparse form (only if sparseform = \code{TRUE}).
-\item \code{rcn0}: the reciprocal conditional number of the original matrix.
-Values near zero are associated with an ill-conditioned matrix.
-\item \code{rcnb}: the reciprocal conditional number of the blended, bended or aligned
-matrix. Values near zero are associated with an ill-conditioned matrix.
-\item \code{det0}: if requested, the determinant of the original matrix.
-\item \code{blend}: if the matrix was \emph{blended}.
-\item \code{bend}: if the matrix was \emph{bended}.
-\item \code{align}: if the matrix was \emph{aligned}.
+\item{\code{Gb}: the inverse of \eqn{\boldsymbol{G}} matrix in full form
+(only if sparseform = \code{FALSE}).}
+\item{\code{Gb.sparse}: if requested, the inverse of \eqn{\boldsymbol{G}} matrix in
+sparse form (only if sparseform = \code{TRUE}).}
+\item{\code{rcn0}: the reciprocal conditional number of the original matrix.
+Values near zero are associated with an ill-conditioned matrix.}
+\item{\code{rcnb}: the reciprocal conditional number of the blended, bended or aligned
+matrix. Values near zero are associated with an ill-conditioned matrix.}
+\item{\code{det0}: if requested, the determinant of the original matrix.}
+\item{\code{blend}: if the matrix was \emph{blended}.}
+\item{\code{bend}: if the matrix was \emph{bended}.}
+\item{\code{align}: if the matrix was \emph{aligned}.}
 }
 }
 \description{
@@ -78,21 +78,22 @@ be of the full form (\eqn{n \times n}) with individual names assigned to
 
 This routine provides three options of tune-up:
 \itemize{
- \item{\emph{Blend}}{. The \eqn{\boldsymbol{G}} matrix is blended (or averaged) with another matrix.
- \eqn{\boldsymbol{G}^\ast=(1-p) \boldsymbol{G} + p \boldsymbol{A}}, where
- \eqn{\boldsymbol{G}^\ast} is the blended matrix, \eqn{\boldsymbol{G}}
- is the original matrix,  \eqn{p} is the
- proportion of the identity matrix or pedigree-based relationship matrix to consider,
- and \eqn{\boldsymbol{A}} is the matrix to blend.
- Ideally, the pedigree-based relationship matrix should be used, but if this is not available (or it is
- of poor quality), then it is replaced by an identity matrix \eqn{\boldsymbol{I}}.}
- \item{\emph{Bend}}{. It consists on adjusting the original \eqn{\boldsymbol{G}} matrix to obtain a
- near positive definite matrix, which is done by making all negative or very small eigenvalues
- slightly positive.}
- \item{\emph{Align}}{. The original \eqn{\boldsymbol{G}} matrix is aligned to the
- matching pedigree relationship
- matrix \eqn{\boldsymbol{A}} where an \eqn{\alpha} and \eqn{\beta} parameters are obtained.
- More information can be found in the manual or in Christensen \emph{et al.} (2012).}
+ \item{\emph{Blend}. The \eqn{\boldsymbol{G}} matrix is blended (or averaged)
+ with another matrix. \eqn{\boldsymbol{G}^\ast=(1-p) \boldsymbol{G} + p
+ \boldsymbol{A}}, where \eqn{\boldsymbol{G}^\ast} is the blended matrix,
+ \eqn{\boldsymbol{G}} is the original matrix,  \eqn{p} is the proportion of
+ the identity matrix or pedigree-based relationship matrix to consider, and
+ \eqn{\boldsymbol{A}} is the matrix to blend. Ideally, the pedigree-based
+ relationship matrix should be used, but if this is not available (or it is
+ of poor quality), then it is replaced by an identity matrix
+ \eqn{\boldsymbol{I}}.}
+ \item{\emph{Bend}. It consists on adjusting the original
+ \eqn{\boldsymbol{G}} matrix to obtain a near positive definite matrix, which
+ is done by making all negative or very small eigenvalues slightly positive.}
+ \item{\emph{Align}. The original \eqn{\boldsymbol{G}} matrix is aligned to
+ the matching pedigree relationship matrix \eqn{\boldsymbol{A}} where an
+ \eqn{\alpha} and \eqn{\beta} parameters are obtained. More information can
+ be found in the manual or in Christensen \emph{et al.} (2012).}
 }
 
 The user should provide the matrices \eqn{\boldsymbol{G}} and

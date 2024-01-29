@@ -53,8 +53,8 @@
 #'
 #' @return
 #' \itemize{
-#'  \item{\code{Mpruned}}{: a matrix containing the pruned marker \emph{M} matrix.}
-#'  \item{\code{map}}{: an data frame containing the pruned map.}
+#'  \item{\code{Mpruned}: a matrix containing the pruned marker \emph{M} matrix.}
+#'  \item{\code{map}: an data frame containing the pruned map.}
 #' }
 #'
 #' @export

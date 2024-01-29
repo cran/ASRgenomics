@@ -1,5 +1,11 @@
 To report bugs and new features, please send a message to \emph{salvador.gezan@vsni.co.uk}
 
+# ASRgenomics 1.1.4  - January 25
+
+##### Bug fixes:
+
+* Minor corrections on documentation and `synthetic.cross`.
+
 # ASRgenomics 1.1.3  - November 25
 
 ##### Improvements:

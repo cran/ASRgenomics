@@ -72,17 +72,16 @@ check.logical_ <- function(arg_ = NULL){
 #' @param data_ Data to be checked.
 #' @param mandatory_ If the argument is mandatory for the analysis.
 #' @param arg_ The string with the name of the function argument (e.g., \code{"gen"}).
-#' @param rename_ If the respective column should be renamed to the argument name (e.g., \code{"genotype"} to \code{"gen"}).
 #' @param class_ The expected class of the variable in data.
-#' @param class.action_ The action to be taken if the variable has the wrong class.
-#' Options are: \code{"message"}, \code{"warning"}, \code{"stop"}.
-#' @param message_ If \code{class.action_ == "message"}, write \code{message = "message"} to capture upstream message command.
-#' @param arg.update_ If the value passed to the argument should be updated to the argument name (e.g., if \code{gen = "geno"}, then \code{gen == "gen"}).
+#' @param class.action_ The action to be taken if the variable has the wrong class
+#' (e.g., \code{"message"}, \code{"warning"}, \code{"stop"}).
+#' @param mutate_ If the argument should be mutated into the desired class.
+#' @param message_ If \code{class.action_ == "message"}, write \code{message = "message"}
+#' to capture upstream message command.
 #'
-#' @details This functions uses the \code{get} and \code{assign} which are need access to
-#' objects that are one environment up on the hierarchy. The \code{envir} is set to
-#' \code{parent.frame}. If the function is looking for something two or more environments up,
-#' the arguments of \code{parent.frame} have to be changed.
+#' @details This functions uses the \code{get} and \code{assign} which are need access to objects that
+#' are one environment up on the hierarchy. The \code{envir} is set to \code{parent.frame}. If the function is looking
+#' for something two or more environments up, the arguments of \code{parent.frame} have to be changed.
 #'
 #' @keywords internal
 
@@ -91,33 +90,55 @@ check.args_ <- function(data_ = NULL,
                         arg_ = NULL,
                         class_ = NULL,
                         class.action_ = NULL,
+                        mutate_ = NULL,
                         message_ = message){
 
-  # Capture relevant info.
-  data.frame_ <- get(data_, envir = parent.frame())
-  real.var.value_ <- get(arg_, envir = parent.frame())
+  # Get data name.
+  data.name_ <- deparse(substitute(data_))
+
+  # Get argument name.
+  arg.name_ <- deparse(substitute(arg_))
+
+  # Get class.
   class.fun_ <- paste0("is.", class_)
 
-  # Evaluate if arg is not null.
-  if( !is.null(real.var.value_) ){
+  # Capture relevant info.
+  variable.name_ <- get(arg.name_, envir = parent.frame())
 
-    # Check real.var.value_ is in data (mandatory stop).
-    if( !real.var.value_ %in% names(data.frame_) )
-      stop(paste0("\'", real.var.value_,
-                  "' does not correspond to a variable name of \'pheno.data'."))
+  # Evaluate if variable is not null.
+  if(!is.null(variable.name_)){
 
-    # Check class of variable in data.
-    if( !getFunction(class.fun_)(data.frame_[[real.var.value_]]) )
+    # Perform actions for each variable passed.
+    for (cur.variable.name_ in variable.name_){
 
-      # Do action unless action is message and message is FALSE.
-      if( !(class.action_ == "message" & isFALSE(message_)) )
-        getFunction(class.action_)(
-          paste0("Variable \'", real.var.value_,
-                 "' should be of class \'", class_, "'."))
+      # Check cur.variable.name_ is in data (mandatory stop).
+      if(!cur.variable.name_ %in% names(data_))
+        stop(paste0("\'", cur.variable.name_, "' does not correspond to a variable name of \'pheno.data'."))
 
+      # Check class of variable in data.
+      if(!getFunction(class.fun_)(data_[[cur.variable.name_]])){
+
+        # Do action unless action is message and message is FALSE and there is no mutation.
+        if(!(class.action_ == "message" & isFALSE(message_)) & is.null(mutate_)){
+          getFunction(class.action_)(
+            paste0("Variable \'", cur.variable.name_, "' must be of class \'", class_, "'."))
+        }
+
+        # Mutate variable if requested.
+        if (!is.null(mutate_)){
+          data_[[cur.variable.name_]] <- getFunction(paste0("as.", class_))(data_[[cur.variable.name_]])
+          assign(x = data.name_, value = data_, envir = parent.frame())
+
+          if (message_){
+            message("Coercing  \'", cur.variable.name_, "' to class \'", class_, "'.")
+          }
+        }
+      }
+    }
   }
 
   # Evaluate if arg is null.
-  if( is.null(real.var.value_) & mandatory_ )
-      stop(paste0("The argument \'", arg_, "' is mandatory."))
+  if( is.null(variable.name_) & mandatory_ )
+    stop(paste0("The argument \'", arg.name_, "' is mandatory."))
 }
+

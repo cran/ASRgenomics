@@ -72,8 +72,8 @@ same values for a given pair of markers, one will be dropped at random (default 
 }
 \value{
 \itemize{
- \item{\code{Mpruned}}{: a matrix containing the pruned marker \emph{M} matrix.}
- \item{\code{map}}{: an data frame containing the pruned map.}
+ \item{\code{Mpruned}: a matrix containing the pruned marker \emph{M} matrix.}
+ \item{\code{map}: an data frame containing the pruned map.}
 }
 }
 \description{

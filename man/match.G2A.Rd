@@ -39,17 +39,16 @@ This matrix can be used to identify inconsistent values between matched matrices
 \value{
 A list with the following elements:
 \itemize{
-\item \code{Gclean}: a matrix with the portion of \eqn{\boldsymbol{G}} containing only matched individuals.
-\item \code{Aclean}: a matrix with the portion of \eqn{\boldsymbol{A}} containing only matched individuals.
-\item \code{mismG}: a vector containing the names of the individuals from matrix \eqn{\boldsymbol{G}} that are
-missing in matrix \eqn{\boldsymbol{A}}.
-\item \code{mismA}: a vector containing the names of the individuals from matrix \eqn{\boldsymbol{A}} that are
-missing in matrix \eqn{\boldsymbol{G}}.
-\item \code{RM}: a data frame with the observations from both the \eqn{\boldsymbol{G}} and \eqn{\boldsymbol{A}}
-matched matrices, together with their absolute relationship difference.
-\item \code{plotG2A}: scatterplot with the pairing of matched pedigree- against genomic-based
-relationship values.
-This graph might take a long to plot with large datasets.
+\item{\code{Gclean}: a matrix with the portion of \eqn{\boldsymbol{G}} containing only matched individuals.}
+\item{\code{Aclean}: a matrix with the portion of \eqn{\boldsymbol{A}} containing only matched individuals.}
+\item{\code{mismG}: a vector containing the names of the individuals from matrix \eqn{\boldsymbol{G}} that are
+missing in matrix \eqn{\boldsymbol{A}}.}
+\item{\code{mismA}: a vector containing the names of the individuals from matrix \eqn{\boldsymbol{A}} that are
+missing in matrix \eqn{\boldsymbol{G}}.}
+\item{\code{RM}: a data frame with the observations from both the \eqn{\boldsymbol{G}} and \eqn{\boldsymbol{A}}
+matched matrices, together with their absolute relationship difference.}
+\item{\code{plotG2A}: scatterplot with the pairing of matched pedigree- against genomic-based
+relationship values. This graph might take a long to plot with large datasets.}
 }
 }
 \description{

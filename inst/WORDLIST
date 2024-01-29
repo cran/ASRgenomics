@@ -1,7 +1,9 @@
 AGHmatrix
 ASReml
+ASRgenomics
 ASRgwas
 Amadeu
+Avelar
 BLUPs
 Baccino
 Borgognone
@@ -61,6 +63,7 @@ Sel
 Simianer
 Su
 Superheat
+VSN
 VanRaden
 Vitezica
 Volz
@@ -72,6 +75,7 @@ asreml
 autotetraploid
 barchart
 bended
+de
 doi
 eigenanalysis
 emph
@@ -102,6 +106,5 @@ recoding
 recombinant
 reproducibility
 sparseform
-ssGBLUP
 taeda
 th

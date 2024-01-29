@@ -34,8 +34,8 @@ required attributes (default = \code{FALSE}).}
 \value{
 A list with one of these two elements:
 \itemize{
-\item \code{G}: the \eqn{\boldsymbol{G}} matrix in full form (only if \code{sparseform = FALSE}).
-\item \code{G.sparse}: the \eqn{\boldsymbol{G}} matrix in sparse form (only if \code{sparseform = TRUE}).
+\item{\code{G}: the \eqn{\boldsymbol{G}} matrix in full form (only if \code{sparseform = FALSE}).}
+\item{\code{G.sparse}: the \eqn{\boldsymbol{G}} matrix in sparse form (only if \code{sparseform = TRUE})}.
 }
 }
 \description{

@@ -54,11 +54,11 @@ required attributes (default = \code{FALSE}).}
 \value{
 A list with three of the following elements:
 \itemize{
-\item \code{Ginv}: the inverse of \eqn{\boldsymbol{G}} matrix in full form (only if \code{sparseform = FALSE}).
-\item \code{Ginv.sparse}: the inverse of \eqn{\boldsymbol{G}} matrix in sparse form (only if \code{sparseform = TRUE}).
-\item \code{status}: the status (\code{ill-conditioned} or \code{well-conditioned}) of
-the inverse of \eqn{\boldsymbol{G}} matrix.
-\item \code{rcn}: the reciprocal conditional number of the inverse of \eqn{\boldsymbol{G}} matrix.
+\item{\code{Ginv}: the inverse of \eqn{\boldsymbol{G}} matrix in full form (only if \code{sparseform = FALSE})}.
+\item{\code{Ginv.sparse}: the inverse of \eqn{\boldsymbol{G}} matrix in sparse form (only if \code{sparseform = TRUE})}.
+\item{\code{status}: the status (\code{ill-conditioned} or \code{well-conditioned}) of
+the inverse of \eqn{\boldsymbol{G}} matrix.}
+\item{\code{rcn}: the reciprocal conditional number of the inverse of \eqn{\boldsymbol{G}} matrix.}
 }
 }
 \description{

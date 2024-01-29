@@ -10,6 +10,7 @@ check.args_(
   arg_ = NULL,
   class_ = NULL,
   class.action_ = NULL,
+  mutate_ = NULL,
   message_ = message
 )
 }
@@ -22,22 +23,20 @@ check.args_(
 
 \item{class_}{The expected class of the variable in data.}
 
-\item{class.action_}{The action to be taken if the variable has the wrong class.
-Options are: \code{"message"}, \code{"warning"}, \code{"stop"}.}
+\item{class.action_}{The action to be taken if the variable has the wrong class
+(e.g., \code{"message"}, \code{"warning"}, \code{"stop"}).}
 
-\item{message_}{If \code{class.action_ == "message"}, write \code{message = "message"} to capture upstream message command.}
+\item{mutate_}{If the argument should be mutated into the desired class.}
 
-\item{rename_}{If the respective column should be renamed to the argument name (e.g., \code{"genotype"} to \code{"gen"}).}
-
-\item{arg.update_}{If the value passed to the argument should be updated to the argument name (e.g., if \code{gen = "geno"}, then \code{gen == "gen"}).}
+\item{message_}{If \code{class.action_ == "message"}, write \code{message = "message"}
+to capture upstream message command.}
 }
 \description{
 Check string arguments
 }
 \details{
-This functions uses the \code{get} and \code{assign} which are need access to
-objects that are one environment up on the hierarchy. The \code{envir} is set to
-\code{parent.frame}. If the function is looking for something two or more environments up,
-the arguments of \code{parent.frame} have to be changed.
+This functions uses the \code{get} and \code{assign} which are need access to objects that
+are one environment up on the hierarchy. The \code{envir} is set to \code{parent.frame}. If the function is looking
+for something two or more environments up, the arguments of \code{parent.frame} have to be changed.
 }
 \keyword{internal}
