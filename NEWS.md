@@ -1,5 +1,11 @@
 To report bugs and new features, please send a message to \emph{salvador.gezan@vsni.co.uk}
 
+# ASRgenomics 1.1.5  - July 04
+
+##### Bug fixes:
+
+* Tests updated to comply with dependencies recent changes.
+
 # ASRgenomics 1.1.4  - January 25
 
 ##### Bug fixes:

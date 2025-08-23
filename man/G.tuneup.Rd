@@ -10,7 +10,7 @@ G.tuneup(
   blend = FALSE,
   pblend = 0.02,
   bend = FALSE,
-  eig.tol = 1e-06,
+  eig.tol = 0.000001,
   align = FALSE,
   rcn = TRUE,
   digits = 8,

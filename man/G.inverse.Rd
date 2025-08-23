@@ -7,7 +7,7 @@
 G.inverse(
   G = NULL,
   A = NULL,
-  rcn.thr = 1e-12,
+  rcn.thr = 0.000000000001,
   blend = FALSE,
   pblend = 0.02,
   bend = FALSE,

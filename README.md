@@ -7,8 +7,7 @@ This package presents a series of molecular and genetic routines in the R enviro
 Use the following code to download and install ASRgenomics:
 
 ``` r
-install.packages("remotes")
-remotes::install_github("asrtools/asrgenomics")
+install.packages("ASRgenomics")
 ```
 
 ## Usage
