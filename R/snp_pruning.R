@@ -78,14 +78,22 @@
 #'
 
 snp.pruning <- function(
-    M = NULL, map = NULL, marker = NULL, chrom = NULL, pos = NULL,
-    method = c('correlation'), criteria = c("callrate", "maf"),
-    pruning.thr = 0.95, by.chrom = FALSE, window.n = 50, overlap.n = 5,
-    iterations = 10,
-    # n.cores = 1,
-    seed = NULL, message = TRUE) {
-
-
+  M = NULL,
+  map = NULL,
+  marker = NULL,
+  chrom = NULL,
+  pos = NULL,
+  method = c('correlation'),
+  criteria = c("callrate", "maf"),
+  pruning.thr = 0.95,
+  by.chrom = FALSE,
+  window.n = 50,
+  overlap.n = 5,
+  iterations = 10,
+  # n.cores = 1,
+  seed = NULL,
+  message = TRUE
+) {
   # Traps ---------------------------------------------------------------------------------------
 
   # Check M class.
@@ -97,40 +105,54 @@ snp.pruning <- function(
   callrate <- callrate(M = M, margin = "col")
 
   # Check callrate.
-  if (any(callrate == 0)){
-    stop("There are markers will all samples missing. Please use qc.filtering() before pruning.")
+  if (any(callrate == 0)) {
+    stop(
+      "There are markers will all samples missing. Please use qc.filtering() before pruning."
+    )
   }
 
   # Check maf.
-  if (any(maf == 0)){
-    stop("There are markers with minor allele frequency equal to 0. Please use qc.filtering() before pruning.")
+  if (any(maf == 0)) {
+    stop(
+      "There are markers with minor allele frequency equal to 0. Please use qc.filtering() before pruning."
+    )
   }
 
   # Create map if not provided.
   if (is.null(map)) {
-
     map <- dummy.map_(colnames(M))
-    marker <- "marker" ; chrom <- "chrom" ; pos <- "pos"
-
+    marker <- "marker"
+    chrom <- "chrom"
+    pos <- "pos"
   } else {
     # Check map class.
     check.data_(data_ = "map", class_ = "data.frame")
 
     # Check map names.
     # Check mandatory variables in map.
-    if(is.null(marker)){stop("The \'marker' option must be specified if \'map' is provided.")}
-    if(is.null(chrom)){stop("The \'chrom' option must be specified if \'map' is provided.")}
+    if (is.null(marker)) {
+      stop("The \'marker' option must be specified if \'map' is provided.")
+    }
+    if (is.null(chrom)) {
+      stop("The \'chrom' option must be specified if \'map' is provided.")
+    }
 
     # Check if they are present in the map.
     map.name.hit <- c(marker, chrom, pos) %in% names(map)
-    if (!all(map.name.hit)){
-      stop("Value provided to argument \'", c("marker", "chrom", "pos")[!map.name.hit], "' does not correspond to a variable in
-           data frame \'map'.")
+    if (!all(map.name.hit)) {
+      stop(
+        "Value provided to argument \'",
+        c("marker", "chrom", "pos")[!map.name.hit],
+        "' does not correspond to a variable in
+           data frame \'map'."
+      )
     }
 
     # Match map and M.
-    if (!identical(as.character(map[[marker]]), colnames(M))){
-      stop("map[[marker]] and colnames(M) must be identical. Please check input.")
+    if (!identical(as.character(map[[marker]]), colnames(M))) {
+      stop(
+        "map[[marker]] and colnames(M) must be identical. Please check input."
+      )
     }
   }
 
@@ -141,7 +163,7 @@ snp.pruning <- function(
   criteria <- match.arg(criteria)
 
   # Check threshold.
-  if (pruning.thr <= 0  | pruning.thr > 1){
+  if (pruning.thr <= 0 | pruning.thr > 1) {
     stop("The condition for pruning.thr is between 0 and 1.")
   }
 
@@ -149,21 +171,25 @@ snp.pruning <- function(
   check.logical_(arg_ = "by.chrom")
 
   # Check window.
-  if(window.n <= 1){
+  if (window.n <= 1) {
     stop("The \'window.n' argument should have an integer larger than 1.")
   }
 
   # Check overlap.
-  if(overlap.n <= 0){
-    stop("The \'overlap.n' argument should have an integer larger or eqaul than 0.")
+  if (overlap.n <= 0) {
+    stop(
+      "The \'overlap.n' argument should have an integer larger or eqaul than 0."
+    )
   }
 
-  if(overlap.n >= window.n){
-    stop("The \'overlap.n' argument should be lower than the \'window.n' argument.")
+  if (overlap.n >= window.n) {
+    stop(
+      "The \'overlap.n' argument should be lower than the \'window.n' argument."
+    )
   }
 
   # Check iterations.
-  if(iterations <= 0){
+  if (iterations <= 0) {
     stop("The \'iterations' argument should have an positive integer.")
   }
 
@@ -177,27 +203,22 @@ snp.pruning <- function(
   # Body ----------------------------------------------------------------------------------------
 
   # Setting seed.
-  if (!is.null(seed)) { set.seed(seed = seed) }
+  if (!is.null(seed)) {
+    set.seed(seed = seed)
+  }
 
   # Identify tiebraking criteria.
   # Logic: the criteria to select markers are maf or callrate.
-  if (criteria == "maf"){
+  if (criteria == "maf") {
     map$criteria <- maf
   }
 
-  if (criteria == "callrate"){
+  if (criteria == "callrate") {
     map$criteria <- callrate
   }
 
   # Selection dummy.
   map$sel <- 1
-
-  # Ordering by maf if requested.
-  # TODO check how this affects the code below.
-  # if (maf.order) {
-  #   map <- map[order(map$maf, decreasing = FALSE),]
-  #   M <- M[, map[[marker]]]
-  # }
 
   # Collect garbage.
   rm(maf, callrate)
@@ -205,17 +226,18 @@ snp.pruning <- function(
   # Marker drop function ------------------------------------------------------------------------
 
   # Call function that drops markers based on the correlation.
-  marker.drop <- function(curr.set.index = NULL){
-
-    init.set.pos <- sets[curr.set.index]  # Position on map and M.
+  marker.drop <- function(curr.set.index = NULL) {
+    init.set.pos <- sets[curr.set.index] # Position on map and M.
 
     # Selecting section of M based on set and overlap.
-    if (n.sets == 0){
+    if (n.sets == 0) {
       window.M <- cur.M
     } else if (curr.set.index == n.sets) {
       window.M <- cur.M[, sets[curr.set.index]:ncol(cur.M)]
     } else {
-      window.M <- cur.M[, sets[curr.set.index]:(sets[curr.set.index + 1] + overlap.n - 1)]
+      window.M <- cur.M[,
+        sets[curr.set.index]:(sets[curr.set.index + 1] + overlap.n - 1)
+      ]
     }
 
     # Generating Corr matrix in sparse (no diagonals).
@@ -230,7 +252,7 @@ snp.pruning <- function(
     # Transform to sparse.
     C.sparse <- as.data.table(full2sparse(C.sparse))
     C.sparse[, Value := abs(Value)]
-    C.sparse <- C.sparse[Row != Col,]
+    C.sparse <- C.sparse[Row != Col, ]
 
     # Order so we check from largest to smaller correlation.
     setorder(C.sparse, -Value)
@@ -239,7 +261,6 @@ snp.pruning <- function(
     rm.pos <- c()
 
     while (C.sparse$Value[1] >= pruning.thr) {
-
       # Identify current Row and Col corrected for set position.
       row.pos <- C.sparse[1, Row] + init.set.pos - 1
       col.pos <- C.sparse[1, Col] + init.set.pos - 1
@@ -247,44 +268,35 @@ snp.pruning <- function(
       # Selecting which marker to keep based on the number of missing.
       # Row and Col equal then random.
       if (cur.map$criteria[row.pos] == cur.map$criteria[col.pos]) {
-
         # Get a random TRUE or FALSE to select the marker.
         if (sample(x = c(TRUE, FALSE), size = 1)) {
           # Drop marker on col.
 
           # Update C.sparse.
-          C.sparse <- C.sparse[Col !=  Col[1] & Row != Col[1], ]
+          C.sparse <- C.sparse[Col != Col[1] & Row != Col[1], ]
 
           # Append position to remove.
           rm.pos <- append(rm.pos, col.pos)
-
         } else {
           # Drop marker on row.
 
           # Update C.sparse.
-          C.sparse <- C.sparse[Col !=  Row[1] & Row != Row[1], ]
+          C.sparse <- C.sparse[Col != Row[1] & Row != Row[1], ]
 
           # Append position to remove.
           rm.pos <- append(rm.pos, row.pos)
-
         }
-      }
-
-      # Row better than Col.
-      else if (cur.map$criteria[row.pos] > cur.map$criteria[col.pos]) {
-
+      } else if (cur.map$criteria[row.pos] > cur.map$criteria[col.pos]) {
+        # Row better than Col.
         # Update C.sparse.
-        C.sparse <- C.sparse[Col !=  Col[1] & Row != Col[1], ]
+        C.sparse <- C.sparse[Col != Col[1] & Row != Col[1], ]
 
         # Append position to remove.
         rm.pos <- append(rm.pos, col.pos)
-      }
-
-      # Col better than Row.
-      else {
-
+      } else {
+        # Col better than Row.
         # Update C.sparse.
-        C.sparse <- C.sparse[Col !=  Row[1] & Row != Row[1], ]
+        C.sparse <- C.sparse[Col != Row[1] & Row != Row[1], ]
 
         # Append position to remove.
         rm.pos <- append(rm.pos, row.pos)
@@ -296,41 +308,42 @@ snp.pruning <- function(
 
   # Collect info for summary --------------------------------------------------------------------
 
-  if (message){
-
+  if (message) {
     # Total number of markers.
     original.n.markers <- ncol(M)
 
     # Number of markers by chromosome.
-    if (by.chrom){
+    if (by.chrom) {
       original.n.markers.chrom <- table(map$chrom)
     }
   }
 
   # Iterate through data ------------------------------------------------------------------------
 
-  if (message){
+  if (message) {
     message(blue("\nInitiating pruning procedure."))
-    message("Initial marker matrix M contains ", nrow(M),
-            " individuals and ", ncol(M), " markers.")
+    message(
+      "Initial marker matrix M contains ",
+      nrow(M),
+      " individuals and ",
+      ncol(M),
+      " markers."
+    )
   }
 
   # If by.chrom is requested, the range is obtained.
-  if (by.chrom){
-
+  if (by.chrom) {
     # Get chromosome range.
     chrom.range <- unique(map[[chrom]])
 
-    if (message){
+    if (message) {
       message("Requesting pruning by chromosome.")
     }
-
   } else {
-
     # Create dummy chromosome range.
     chrom.range <- 1
 
-    if (message){
+    if (message) {
       message("Requesting pruning without chromosome indexing.")
     }
   }
@@ -339,16 +352,14 @@ snp.pruning <- function(
   iter.range <- 1:iterations
 
   # Loop across chromosomes.
-  for (cur.chrom in chrom.range){
-
-    if (length(chrom.range) > 1 & message){
+  for (cur.chrom in chrom.range) {
+    if (length(chrom.range) > 1 & message) {
       message(paste0("Chromosome: ", cur.chrom))
     }
 
     # Split datasets if by.chrom was requested.
     # Get split index.
-    if(by.chrom){
-
+    if (by.chrom) {
       split.index <- map[, chrom] == cur.chrom
 
       # Get data to for current chromosome.
@@ -358,9 +369,7 @@ snp.pruning <- function(
       # Save other chromosomes.
       map <- map[!split.index, ]
       M <- M[, !split.index, drop = FALSE]
-
     } else {
-
       # Collect map and M for calculations.
       # Logic: this is required if map is passed but by.chrom is FALSE.
       # Original map and M have to be NULL because they are bound later.
@@ -376,8 +385,7 @@ snp.pruning <- function(
     # This must be a loop because it is conditional.
     # Logic: this section is conditional to the previous one, so, no parallelization in R.
     for (iter in iter.range) {
-
-      if (message){
+      if (message) {
         message("  Iteration: ", iter)
       }
 
@@ -385,7 +393,9 @@ snp.pruning <- function(
       cur.map$sel[unlist(drop.pos)] <- 0
 
       # Stop criteria. If there was no drop on the last run. Break.
-      if (iter > 1 & all(cur.map$sel == 1)) { break }
+      if (iter > 1 & all(cur.map$sel == 1)) {
+        break
+      }
 
       # Eliminate markers.
       cur.M <- cur.M[, cur.map$sel == 1]
@@ -413,35 +423,58 @@ snp.pruning <- function(
     # Bind chromosomes.
     map <- rbind(map, cur.map)
     M <- cbind(M, cur.M)
-
   }
 
   # Summary -------------------------------------------------------------------------------------
 
-  if (message){
-
-    message("\nFinal pruned marker matrix M contains ", nrow(M),
-            " individuals and ", ncol(M), " markers.")
+  if (message) {
+    message(
+      "\nFinal pruned marker matrix M contains ",
+      nrow(M),
+      " individuals and ",
+      ncol(M),
+      " markers."
+    )
     #message("A total of ", ncol(M), " markers were kept after pruning.")
-    message("A total of ", original.n.markers - ncol(M), " markers were pruned.")
+    message(
+      "A total of ",
+      original.n.markers - ncol(M),
+      " markers were pruned."
+    )
 
-    if (by.chrom){
+    if (by.chrom) {
       # Number of markers by chromosome.
-      message(paste0("A total of ", table(map$chrom), " markers were kept in chromosome ",
-                     names(table(map$chrom)), ".", collapse = "\n"))
-      message(paste0("A total of ", original.n.markers.chrom - table(map$chrom),
-                     " markers were pruned from chromosome ", names(table(map$chrom)),
-                     ".", collapse = "\n"))
+      message(paste0(
+        "A total of ",
+        table(map$chrom),
+        " markers were kept in chromosome ",
+        names(table(map$chrom)),
+        ".",
+        collapse = "\n"
+      ))
+      message(paste0(
+        "A total of ",
+        original.n.markers.chrom - table(map$chrom),
+        " markers were pruned from chromosome ",
+        names(table(map$chrom)),
+        ".",
+        collapse = "\n"
+      ))
     }
 
     # maf and call rate report.
-    message("Range of minor allele frequency after pruning: ",
-            paste0(round(range(maf(M = M)), 2), collapse = " ~ "))
-    message("Range of marker call rate after pruning: ",
-            paste0(round(range(callrate(M = M, margin = "col")), 2), collapse = " ~ "))
-    message("Range of individual call rate after pruning: ",
-            paste0(round(range(callrate(M = M, margin = "row")), 2), collapse = " ~ "))
-
+    message(
+      "Range of minor allele frequency after pruning: ",
+      paste0(round(range(maf(M = M)), 2), collapse = " ~ ")
+    )
+    message(
+      "Range of marker call rate after pruning: ",
+      paste0(round(range(callrate(M = M, margin = "col")), 2), collapse = " ~ ")
+    )
+    message(
+      "Range of individual call rate after pruning: ",
+      paste0(round(range(callrate(M = M, margin = "row")), 2), collapse = " ~ ")
+    )
   }
 
   # Finilize ------------------------------------------------------------------------------------
@@ -450,5 +483,4 @@ snp.pruning <- function(
 
   # Return pruned map and molecular matrix.
   return(list(map = map, Mpruned = M))
-
 }

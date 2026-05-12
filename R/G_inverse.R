@@ -65,19 +65,27 @@
 #' GINV$status
 #'
 
-G.inverse <- function(G = NULL, A = NULL, rcn.thr = 1e-12,
-                      blend = FALSE, pblend = 0.02,
-                      bend = FALSE, eig.tol = NULL, align = FALSE,
-                      digits = 8, sparseform = FALSE, message = TRUE){
-
-  # TODO check why eig.tol is not used in the function.
-
+G.inverse <- function(
+  G = NULL,
+  A = NULL,
+  rcn.thr = 1e-12,
+  blend = FALSE,
+  pblend = 0.02,
+  bend = FALSE,
+  eig.tol = NULL,
+  align = FALSE,
+  digits = 8,
+  sparseform = FALSE,
+  message = TRUE
+) {
   # Deprecation traps ---------------------------------------------------------------------------
 
-  if (!is.null(A) | blend | bend | align | !is.null(eig.tol)){
-    warning("The arguments \'A', \'blend', \'pblend', \'bend', \'align', \'eig.tol' are still active",
-            " but will be discontinued in future versions. Please use \'G.tuneup'",
-            " to perform the respective actions.")
+  if (!is.null(A) | blend | bend | align | !is.null(eig.tol)) {
+    warning(
+      "The arguments \'A', \'blend', \'pblend', \'bend', \'align', \'eig.tol' are still active",
+      " but will be discontinued in future versions. Please use \'G.tuneup'",
+      " to perform the respective actions."
+    )
   }
 
   # Traps ---------------------------------------------------------------------------------------
@@ -87,13 +95,13 @@ G.inverse <- function(G = NULL, A = NULL, rcn.thr = 1e-12,
     stop("G should be a valid object of class matrix.")
   }
   # Check the rownames/colnames
-  if (is.null(rownames(G))){
+  if (is.null(rownames(G))) {
     stop("Individual names not assigned to rows of matrix G.")
   }
-  if (is.null(colnames(G))){
+  if (is.null(colnames(G))) {
     stop('Individual names not assigned to columns of matrix G.')
   }
-  if ((identical(rownames(G), colnames(G))) == FALSE){
+  if ((identical(rownames(G), colnames(G))) == FALSE) {
     stop("Rownames and colnames of matrix G do not match.")
   }
 
@@ -106,7 +114,7 @@ G.inverse <- function(G = NULL, A = NULL, rcn.thr = 1e-12,
     stop("Value for rcn.thr must be positive.")
   }
 
-  if(!is.null(eig.tol)){
+  if (!is.null(eig.tol)) {
     if (eig.tol <= 0) {
       stop("Value for eig.tol must be positive.")
     }
@@ -118,20 +126,23 @@ G.inverse <- function(G = NULL, A = NULL, rcn.thr = 1e-12,
 
   # Reciprocal Condition Number RCN
   rcn <- rcond(G)
-  if (message){
+  if (message) {
     message('Reciprocal conditional number for original matrix is: ', rcn)
   }
 
   # Check the RCN default value and inverting the matrix
-  if (rcn > rcn.thr){
-
+  if (rcn > rcn.thr) {
     # Try to get the inverse of G.
     ginverse <- tryCatch(
-      expr = {chol2inv(chol(G))},
-      error = function(holder){return(NULL)}
+      expr = {
+        chol2inv(chol(G))
+      },
+      error = function(holder) {
+        return(NULL)
+      }
     )
 
-    if (is.null(ginverse)){
+    if (is.null(ginverse)) {
       stop("Matrix G is not positive definite.")
     }
 
@@ -139,26 +150,47 @@ G.inverse <- function(G = NULL, A = NULL, rcn.thr = 1e-12,
     colnames(ginverse) <- colnames(G) # Add
     ginverse <- round(ginverse, digits)
   }
-  if (rcn < rcn.thr & message){
-    message('Reciprocal conditional number of G is: ',rcn, ', which is lower than the threshold of ',rcn.thr)
+  if (rcn < rcn.thr & message) {
+    message(
+      'Reciprocal conditional number of G is: ',
+      rcn,
+      ', which is lower than the threshold of ',
+      rcn.thr
+    )
     message("G seems to be an ill-conditioned matrix.")
   }
-  if (rcn < rcn.thr & !isTRUE(blend) & !isTRUE(bend) & !isTRUE(align)){
-    stop('Consider bending, blending or aligning before invertion to make
-         this matrix more stable.')
+  if (rcn < rcn.thr & !isTRUE(blend) & !isTRUE(bend) & !isTRUE(align)) {
+    stop(
+      'Consider bending, blending or aligning before invertion to make
+         this matrix more stable.'
+    )
   }
 
-  if (isTRUE(blend) || isTRUE(bend) || isTRUE(align)){
-    Gb <- G.tuneup(G=G, A=A, blend=blend, pblend=pblend, bend=bend, align=align,
-                   rcn=FALSE,sparseform=FALSE, determinant=FALSE, message=FALSE)$Gb
+  if (isTRUE(blend) || isTRUE(bend) || isTRUE(align)) {
+    Gb <- G.tuneup(
+      G = G,
+      A = A,
+      blend = blend,
+      pblend = pblend,
+      bend = bend,
+      align = align,
+      rcn = FALSE,
+      sparseform = FALSE,
+      determinant = FALSE,
+      message = FALSE
+    )$Gb
 
     # Try to get the inverse of Gb (tuned).
     ginverse <- tryCatch(
-      expr = {chol2inv(chol(Gb))},
-      error = function(holder){return(NULL)}
+      expr = {
+        chol2inv(chol(Gb))
+      },
+      error = function(holder) {
+        return(NULL)
+      }
     )
 
-    if (is.null(ginverse)){
+    if (is.null(ginverse)) {
       stop("Matrix G (tuned) is not positive definite.")
     }
 
@@ -169,25 +201,28 @@ G.inverse <- function(G = NULL, A = NULL, rcn.thr = 1e-12,
   ginverse <- round(ginverse, digits)
 
   # Reciprocal Condition Number RCN
-  rcninv<-rcond(ginverse)
-  if (message){
+  rcninv <- rcond(ginverse)
+  if (message) {
     message('Reciprocal conditional number for inverted matrix is: ', rcninv)
   }
 
   # Evaluating Matrix Empirically
   # Note: these are simple comparisons to check stability of matrix
   n <- ncol(ginverse)
-  CN.1 <- ginverse[1,2]/sqrt(ginverse[1,1]*ginverse[1,1])
-  CN.N <- ginverse[(n-1),n]/sqrt(ginverse[(n-1),(n-1)]*ginverse[n,n])
+  CN.1 <- ginverse[1, 2] / sqrt(ginverse[1, 1] * ginverse[1, 1])
+  CN.N <- ginverse[(n - 1), n] /
+    sqrt(ginverse[(n - 1), (n - 1)] * ginverse[n, n])
   max_diag <- abs(max(diag(ginverse)))
-  max_off_diag <- max(abs(ginverse-diag(ginverse)))
-  if(abs(CN.1)>0.99 | abs(CN.N)>0.99 | max_diag>1000 |  max_off_diag>1000) {
-    if (message){
+  max_off_diag <- max(abs(ginverse - diag(ginverse)))
+  if (
+    abs(CN.1) > 0.99 | abs(CN.N) > 0.99 | max_diag > 1000 | max_off_diag > 1000
+  ) {
+    if (message) {
       message("Inverse of matrix G appears to be ill-conditioned.")
     }
     status <- 'ill-conditioned'
   } else {
-    if (message){
+    if (message) {
       message("Inverse of matrix G does not appear to be ill-conditioned.")
     }
     status <- 'well-conditioned'
@@ -197,12 +232,11 @@ G.inverse <- function(G = NULL, A = NULL, rcn.thr = 1e-12,
   if (isTRUE(sparseform)) {
     ginverse.sparse <- full2sparse(ginverse)
     attr(ginverse.sparse, "INVERSE") <- TRUE
-    return(list(Ginv.sparse = ginverse.sparse, rcn=rcninv, status=status))
-  } else{
+    return(list(Ginv.sparse = ginverse.sparse, rcn = rcninv, status = status))
+  } else {
     attr(ginverse, "rowNames") <- rownames(ginverse)
     attr(ginverse, "colNames") <- colnames(ginverse)
     attr(ginverse, "INVERSE") <- TRUE
-    return(list(Ginv = ginverse, rcn=rcninv, status=status))
+    return(list(Ginv = ginverse, rcn = rcninv, status = status))
   }
-
 }

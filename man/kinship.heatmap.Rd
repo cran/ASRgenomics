@@ -44,9 +44,6 @@ matrix \eqn{\boldsymbol{H}}.
 Individual names should be assigned to \code{rownames} and \code{colnames}.
 It sorts individuals according to dendrogram in both columns and rows.
 }
-\details{
-Uses the library \code{superheat} from Barter and Yu (2018) to generate plots.
-}
 \examples{
 # Get G matrix.
 G <- G.matrix(M = geno.apple, method = "VanRaden")$G
@@ -55,9 +52,4 @@ G[1:5, 1:5]
 # Plot a subset of the individuals.
 kinship.heatmap(K = G[1:10, 1:10], dendrogram = TRUE, row.label = TRUE, col.label = TRUE)
 
-}
-\references{
-Barter, R.L. and Yu, B. 2018. Superheat: An R package for creating beautiful
-and extendable heatmaps for visualizing complex data.
-J. Comput. Graph. Stat. 27(4):910-922.
 }

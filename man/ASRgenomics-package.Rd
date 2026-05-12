@@ -13,6 +13,7 @@ Presents a series of molecular and genetic routines in the R environment with th
 
 Authors:
 \itemize{
+  \item Salvador Gezan \email{salvador.gezan@vsni.co.uk}
   \item Darren Murray \email{darren.murray@vsni.co.uk}
   \item Amanda Avelar de Oliveira \email{support@vsni.co.uk}
   \item Giovanni Galli \email{giovanni.galli@vsni.co.uk}

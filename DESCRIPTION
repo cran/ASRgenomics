@@ -1,6 +1,6 @@
 Package: ASRgenomics
 Title: Complementary Genomic Functions
-Version: 1.1.5
+Version: 1.1.6
 Authors@R: c(
     person('Salvador', 'Gezan', , 'salvador.gezan@vsni.co.uk', role = c('aut', 'cre')),
     person('Darren', 'Murray', , 'darren.murray@vsni.co.uk', role = 'aut'),
@@ -17,16 +17,16 @@ Description: Presents a series of molecular and genetic routines in the R
 License: MIT + file LICENSE
 Depends: R (>= 4.1.0)
 Imports: AGHmatrix, cowplot, crayon, data.table, ellipse, factoextra,
-        ggplot2, Matrix, methods, scattermore, stats, superheat, utils
+        ggplot2, Matrix, methods, scattermore, stats, utils
 Suggests: knitr, rmarkdown, spelling, V8, testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 LazyDataCompression: bzip2
-RoxygenNote: 7.3.2
+RoxygenNote: 8.0.0
 Language: en-US
 NeedsCompilation: no
-Packaged: 2025-08-22 20:50:00 UTC; gio
+Packaged: 2026-05-12 16:18:49 UTC; gio
 Author: Salvador Gezan [aut, cre],
   Darren Murray [aut],
   Amanda Avelar de Oliveira [aut],
@@ -34,4 +34,4 @@ Author: Salvador Gezan [aut, cre],
   VSN International [cph]
 Maintainer: Salvador Gezan <salvador.gezan@vsni.co.uk>
 Repository: CRAN
-Date/Publication: 2025-08-23 12:12:05 UTC
+Date/Publication: 2026-05-12 18:10:09 UTC

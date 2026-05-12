@@ -7,10 +7,9 @@
 #'
 #' @keywords internal
 
-maf <- function(M = NULL){
-
+maf <- function(M = NULL) {
   # Get the frequency of the markers.
-  maf <- colMeans(M, na.rm = TRUE)/2
+  maf <- colMeans(M, na.rm = TRUE) / 2
 
   # Identify the MAF.
   maf <- apply(cbind(maf, 1 - maf), 1, min)
@@ -26,8 +25,7 @@ maf <- function(M = NULL){
 #'
 #' @keywords internal
 
-heterozygosity <- function(M = NULL){
-
+heterozygosity <- function(M = NULL) {
   # Get q.
   q <- maf(M)
 
@@ -53,19 +51,21 @@ heterozygosity <- function(M = NULL){
 #'
 #' @keywords internal
 
-callrate <- function(M = NULL, margin = c("row", "col")){
-
+callrate <- function(M = NULL, margin = c("row", "col")) {
   # Collect input.
   margin <- match.arg(margin)
 
   # CR by row.
-  if (margin == "row") cr <- 100 - rowSums(is.na(M))/ncol(M) * 100
+  if (margin == "row") {
+    cr <- 100 - rowSums(is.na(M)) / ncol(M) * 100
+  }
 
   # CR by col.
-  if (margin == "col") cr <- 100 - colSums(is.na(M))/nrow(M) * 100
+  if (margin == "col") {
+    cr <- 100 - colSums(is.na(M)) / nrow(M) * 100
+  }
 
   return(cr)
-
 }
 
 #' Estimates the population level inbreeding (Fis) by marker
@@ -78,22 +78,23 @@ callrate <- function(M = NULL, margin = c("row", "col")){
 #'
 #' @keywords internal
 
-Fis <- function(M = NULL, margin = c("col", "row")){
-
+Fis <- function(M = NULL, margin = c("col", "row")) {
   # Collect input.
   margin <- match.arg(margin)
 
   # H by row.
-  if (margin == "col") H <- heterozygosity(M = M)
+  if (margin == "col") {
+    H <- heterozygosity(M = M)
+  }
 
   # H by col.
-  if (margin == "row") H <- heterozygosity(M = t(M))
+  if (margin == "row") {
+    H <- heterozygosity(M = t(M))
+  }
 
-  # Calculate Fis.
-  Fis <- ifelse(test = H[, "he"] == 0,
-                yes = 0,
-                no = 1 - (H[,"ho"] / H[,"he"]))
+  he <- H[, "he"]
+  ho <- H[, "ho"]
 
-  return(Fis)
-
+  # Undefined when he is NA or 0
+  ifelse(is.na(he) | he == 0, 0, 1 - (ho / he))
 }

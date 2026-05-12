@@ -1,5 +1,9 @@
 To report bugs and new features, please send a message to \emph{salvador.gezan@vsni.co.uk}
 
+# ASRgenomics 1.1.6  - May 05, 2026
+
+* Remove `superheat` as dependency.
+
 # ASRgenomics 1.1.5  - July 04
 
 ##### Bug fixes:
